@@ -32,6 +32,12 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
+LOCAL_MODULE := libqc-skia
+LOCAL_SRC_FILES := libqc-skia.a
+include $(BUILD_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+
 LOCAL_ARM_MODE := thumb
 
 # need a flag to tell the C side when we're on devices with large memory
@@ -553,6 +559,11 @@ LOCAL_STATIC_LIBRARIES := \
 	libgif \
 	libwebp-decode \
 	libwebp-encode
+
+ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
+	LOCAL_WHOLE_STATIC_LIBRARIES += libqc-skia
+endif
+
 
 LOCAL_C_INCLUDES := \
 	$(LOCAL_PATH)/include/core \
